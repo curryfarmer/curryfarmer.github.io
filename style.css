@@ -1,0 +1,129 @@
+/* ==== Base reset & layout ==== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;      /* Makes width/height include padding & border → easier layout math */
+  margin: 0;                   /* Remove default margins from all elements */
+  padding: 0;                  /* Remove default padding from all elements */
+}
+
+html {
+  font-size: 16px;             /* Base font size; rem units scale from this */
+  -webkit-font-smoothing: antialiased; /* Slightly crisper fonts on WebKit browsers */
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;    /* Use the OS UI font for a clean, native look */
+  background-color: #fdfdfd;   /* Very light background (not pure white) */
+  color: #111111;              /* Dark text for contrast */
+  line-height: 1.6;            /* Comfortable line spacing for reading */
+  padding: 2rem 1.5rem;        /* Space between viewport edge and content */
+  display: flex;               /* Use flexbox to center the main column */
+  justify-content: center;     /* Horizontally center the child (.main) */
+}
+
+/* ==== Main content column ==== */
+.main {
+  max-width: 720px;            /* Limits line length for readability */
+  width: 100%;                 /* Let it shrink on small screens */
+}
+
+/* ==== Typography ==== */
+h1,
+h2,
+h3 {
+  font-weight: 600;            /* Slightly bold but not too heavy */
+  line-height: 1.3;            /* Tighter than body text */
+  margin-bottom: 0.4rem;       /* Space after headings */
+}
+
+h1 {
+  font-size: 1.6rem;           /* Main page title size */
+  margin-bottom: 1rem;         /* Extra space below main title */
+}
+
+h2 {
+  font-size: 1.2rem;           /* Section heading size */
+  margin-top: 1.8rem;          /* Space above each section heading */
+}
+
+h3 {
+  font-size: 1rem;             /* Smaller subheading */
+  margin-top: 1.2rem;
+}
+
+p {
+  margin-bottom: 0.6rem;       /* Space between paragraphs */
+}
+
+ul {
+  margin: 0.4rem 0 0.8rem 1.2rem; /* Top/bottom margin; left indent for bullets */
+}
+
+li {
+  margin-bottom: 0.3rem;       /* Space between list items */
+}
+
+/* Dates / meta text */
+.meta,
+small,
+.time {
+  font-size: 0.9rem;           /* Slightly smaller text for metadata */
+  color: #666666;              /* Gray color so it looks secondary */
+}
+
+/* ==== Links ==== */
+a {
+  color: inherit;              /* Links use same color as surrounding text */
+  text-decoration: underline;  /* Visible underline instead of color change */
+  text-decoration-thickness: 0.08em; /* Slim underline */
+  text-underline-offset: 0.18em;     /* Small gap between text and underline */
+}
+
+a:hover {
+  text-decoration-thickness: 0.12em; /* Slightly thicker underline on hover */
+}
+
+/* ==== Sections that look like timeline entries ==== */
+.section-block {
+  margin-top: 1.2rem;          /* Space above each “entry” block */
+}
+
+.section-title {
+  font-weight: 600;            /* Job title / project title emphasized */
+}
+
+.section-role {
+  font-style: italic;          /* Optional secondary line (e.g., role) */
+  color: #333333;
+  margin-top: 0.1rem;
+}
+
+.section-dates {
+  font-size: 0.9rem;           /* Dates smaller, like metadata */
+  color: #777777;              /* Lighter gray */
+  margin-top: 0.1rem;
+}
+
+.section-body {
+  margin-top: 0.3rem;          /* Space before description text */
+}
+
+/* ==== Horizontal rules / subtle separators ==== */
+hr {
+  border: none;
+  border-top: 1px solid #e1e1e1; /* Thin light line between groups */
+  margin: 1.5rem 0;              /* Space above and below the line */
+}
+
+/* ==== Responsive tweaks ==== */
+@media (min-width: 900px) {
+  body {
+    padding-top: 3rem;        /* More top padding on larger screens */
+  }
+
+  h1 {
+    font-size: 1.8rem;        /* Slightly larger main title on big screens */
+  }
+}
