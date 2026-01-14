@@ -75,7 +75,7 @@ small,
 
 /* ==== Links ==== */
 a {
-  color: inherit;              /* Links use same color as surrounding text */
+  color: #1578BF;              /* Links use same color as surrounding text */
   text-decoration: underline;  /* Visible underline instead of color change */
   text-decoration-thickness: 0.08em; /* Slim underline */
   text-underline-offset: 0.18em;     /* Small gap between text and underline */
@@ -127,3 +127,6 @@ hr {
     font-size: 1.8rem;        /* Slightly larger main title on big screens */
   }
 }
+
+/*Typing Animation*/
+
