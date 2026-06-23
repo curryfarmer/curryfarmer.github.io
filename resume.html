@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ====================================================================
+       resume.html — experience + education as a simple timeline,
+       plus a button to download your PDF resume.
+
+       TO EDIT:  duplicate an <li class="entry"> block to add a role.
+       TO ADD THE PDF: drop resume.pdf next to this file, the link below
+                       already points at it.
+       ==================================================================== -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>resume — john-paul wee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesque:wght@400..700&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+  <link rel="manifest" href="/images/site.webmanifest" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="primary">
+      <a class="brand" href="index.html">john-paul wee</a>
+      <ul class="nav-links">
+        <li><a href="index.html">home</a></li>
+        <li><a href="resume.html" class="current" aria-current="page">resume</a></li>
+        <li><a href="projects.html">projects</a></li>
+        <li><a href="snapshots.html">snapshots</a></li>
+        <li><a href="musings.html">musings</a></li>
+        <li><a href="now.html">now</a></li>
+        <li><a href="interests.html">interests</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1 class="page-title">resume</h1>
+    <p class="lead">a short version. the full one is a click away.</p>
+    <!-- the PDF download. put a file named resume.pdf beside this page. -->
+    <a class="pill" href="resume.pdf" download>download pdf ↓</a>
+
+    <!-- EXPERIENCE ----------------------------------------------------- -->
+    <p class="section-label">experience</p>
+    <ul class="entries">
+      <!-- EDIT: one <li class="entry"> per job. duplicate to add another. -->
+      <li class="entry">
+        <div class="entry-head">
+          <span class="entry-title">senior backend engineer — company</span>
+          <span class="entry-meta">2023 — now</span>
+        </div>
+        <p>One or two plain sentences on what you owned and the dent you made. Lead with impact, not tools.</p>
+      </li>
+      <li class="entry">
+        <div class="entry-head">
+          <span class="entry-title">backend engineer — earlier company</span>
+          <span class="entry-meta">2020 — 2023</span>
+        </div>
+        <p>What you built, who it served, and the result. Keep it human and specific.</p>
+      </li>
+    </ul>
+
+    <!-- EDUCATION ------------------------------------------------------ -->
+    <p class="section-label">education</p>
+    <ul class="entries">
+      <li class="entry">
+        <div class="entry-head">
+          <span class="entry-title">b.s. in computer science — university</span>
+          <span class="entry-meta">2016 — 2020</span>
+        </div>
+        <p>Optional line — a focus, an honor, or something you made there.</p>
+      </li>
+    </ul>
+  </main>
+
+  <footer class="site-footer wrap">
+    <p>© <span id="year"></span> john-paul wee · <a href="mailto:wydjohnpaul@gmail.com">wydjohnpaul@gmail.com</a> · <a href="https://www.linkedin.com/in/wydjohnpaul">linkedin</a> · <a href="https://www.instagram.com/wyd_jp/">instagram</a></p>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

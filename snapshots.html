@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ====================================================================
+       snapshots.html — a travel journal. Photos grouped by place, newest
+       trip first. Click a photo to enlarge it (lightbox).
+
+       TO ADD A TRIP:   duplicate a whole <section class="trip"> block.
+       TO ADD A PHOTO:  duplicate a <button class="shot"> block. To make it
+                        a real photo, replace the <div class="placeholder">
+                        with  <img src="photos/lisbon-1.jpg" alt="...">  AND
+                        add  data-full="photos/lisbon-1.jpg"  to the button
+                        (that's the big version the lightbox shows).
+       Make a "photos" folder next to this file and drop images in.
+       ==================================================================== -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>snapshots — john-paul wee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesque:wght@400..700&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+  <link rel="manifest" href="/images/site.webmanifest" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="primary">
+      <a class="brand" href="index.html">john-paul wee</a>
+      <ul class="nav-links">
+        <li><a href="index.html">home</a></li>
+        <li><a href="resume.html">resume</a></li>
+        <li><a href="projects.html">projects</a></li>
+        <li><a href="snapshots.html" class="current" aria-current="page">snapshots</a></li>
+        <li><a href="musings.html">musings</a></li>
+        <li><a href="now.html">now</a></li>
+        <li><a href="interests.html">interests</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wrap wide centered">
+    <h1 class="page-title">snapshots</h1>
+    <p class="lead">photos from wherever i happened to be — i just snap stuff that sometimes looks nice.</p>
+
+    <div class="journal">
+
+      <!-- ONE TRIP — duplicate this whole <section> to add another place -->
+      <section class="trip">
+        <h2 class="trip-place">lisbon <span class="trip-when">spring '24</span></h2>
+        <div class="trip-grid">
+          <!-- ONE PHOTO — duplicate this button to add another -->
+          <button class="shot" type="button" data-cap="lisbon · spring '24">
+            <div class="placeholder">photo</div>
+          </button>
+          <button class="shot" type="button" data-cap="lisbon · spring '24">
+            <div class="placeholder">photo</div>
+          </button>
+          <button class="shot" type="button" data-cap="lisbon · spring '24">
+            <div class="placeholder">photo</div>
+          </button>
+          <button class="shot" type="button" data-cap="lisbon · spring '24">
+            <div class="placeholder">photo</div>
+          </button>
+          <button class="shot" type="button" data-cap="lisbon · spring '24">
+            <div class="placeholder">photo</div>
+          </button>
+        </div>
+      </section>
+
+      <section class="trip">
+        <h2 class="trip-place">tokyo <span class="trip-when">winter '23</span></h2>
+        <div class="trip-grid">
+          <button class="shot" type="button" data-cap="tokyo · winter '23">
+            <div class="placeholder">photo</div>
+          </button>
+          <button class="shot" type="button" data-cap="tokyo · winter '23">
+            <div class="placeholder">photo</div>
+          </button>
+          <button class="shot" type="button" data-cap="tokyo · winter '23">
+            <div class="placeholder">photo</div>
+          </button>
+          <button class="shot" type="button" data-cap="tokyo · winter '23">
+            <div class="placeholder">photo</div>
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer wrap">
+    <p>© <span id="year"></span> john-paul wee · <a href="mailto:wydjohnpaul@gmail.com">wydjohnpaul@gmail.com</a> · <a href="https://www.linkedin.com/in/wydjohnpaul">linkedin</a> · <a href="https://www.instagram.com/wyd_jp/">instagram</a></p>
+  </footer>
+
+  <!-- the lightbox: hidden until you click a photo that has a data-full image -->
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="photo viewer">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="close">✕</button>
+    <img id="lightbox-img" src="" alt="">
+    <p class="lightbox-cap" id="lightbox-cap"></p>
+  </div>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+
+  <!-- lightbox behaviour. opens only for photos that have a real data-full image. -->
+  <script>
+    (function () {
+      var box = document.getElementById("lightbox");
+      var img = document.getElementById("lightbox-img");
+      var cap = document.getElementById("lightbox-cap");
+      var closeBtn = document.getElementById("lightbox-close");
+      if (!box) return;
+      var opener = null;
+      function open(shot) {
+        var full = shot.getAttribute("data-full");
+        if (!full) return;            // placeholder with no real photo yet — nothing to enlarge
+        opener = shot;
+        img.src = full;
+        img.alt = shot.getAttribute("data-cap") || "";
+        cap.textContent = shot.getAttribute("data-cap") || "";
+        box.hidden = false;
+        closeBtn.focus();
+      }
+      function close() {
+        box.hidden = true;
+        img.removeAttribute("src");
+        if (opener) opener.focus();
+      }
+      document.querySelectorAll(".shot").forEach(function (s) {
+        s.addEventListener("click", function () { open(s); });
+      });
+      closeBtn.addEventListener("click", close);
+      box.addEventListener("click", function (e) { if (e.target === box) close(); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !box.hidden) close();
+      });
+    })();
+  </script>
+</body>
+</html>

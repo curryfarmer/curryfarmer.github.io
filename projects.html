@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ====================================================================
+       projects.html — two sections: technical, then non-technical.
+       Each project is a title + a couple of plain sentences + links.
+       Let the work speak; no buzzwords needed.
+
+       TO EDIT:  duplicate an <li class="entry"> block to add a project.
+       The little grey "stack:" line and the footnote are OPTIONAL — delete
+       them if a project doesn't need them.
+       ==================================================================== -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>projects — john-paul wee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesque:wght@400..700&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+  <link rel="manifest" href="/images/site.webmanifest" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="primary">
+      <a class="brand" href="index.html">john-paul wee</a>
+      <ul class="nav-links">
+        <li><a href="index.html">home</a></li>
+        <li><a href="resume.html">resume</a></li>
+        <li><a href="projects.html" class="current" aria-current="page">projects</a></li>
+        <li><a href="snapshots.html">snapshots</a></li>
+        <li><a href="musings.html">musings</a></li>
+        <li><a href="now.html">now</a></li>
+        <li><a href="interests.html">interests</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1 class="page-title">projects</h1>
+    <p class="lead">a few things i've made — the technical, and everything else.</p>
+
+    <!-- the split: two small toggle links. with javascript, clicking one shows
+         just that group. without javascript, both groups simply show in order. -->
+    <div class="toggle">
+      <button class="t-link active" data-target="technical" type="button">technical</button>
+      <span class="t-sep">/</span>
+      <button class="t-link" data-target="nontechnical" type="button">not nerd stuff</button>
+    </div>
+
+    <!-- TECHNICAL ------------------------------------------------------ -->
+    <section id="technical" class="proj-group">
+    <ul class="entries">
+      <!-- EDIT: one <li class="entry"> per project. duplicate to add another. -->
+      <li class="entry">
+        <div class="entry-head">
+          <span class="entry-title">project name</span>
+          <span class="entry-meta">2024</span>
+        </div>
+        <p>What it does and why it was worth building, in plain words. One detail that shows the thinking<a href="#n1" id="r1" class="fnref">1</a>.</p>
+        <!-- OPTIONAL: the quiet "what it's built with" line -->
+        <p class="stack">stack: go · postgres · redis</p>
+        <div class="entry-links">
+          <a href="#">code →</a>
+          <a href="#">writeup →</a>
+        </div>
+      </li>
+      <li class="entry">
+        <div class="entry-head">
+          <span class="entry-title">another project</span>
+          <span class="entry-meta">2023</span>
+        </div>
+        <p>Keep it confident and specific. The result matters more than the toolchain.</p>
+        <p class="stack">stack: python · sqlite</p>
+        <div class="entry-links">
+          <a href="#">code →</a>
+        </div>
+      </li>
+    </ul>
+    </section>
+
+    <!-- NOT NERD STUFF (id stays "nontechnical" so the toggle keeps working) -- -->
+    <section id="nontechnical" class="proj-group">
+    <ul class="entries">
+      <li class="entry">
+        <div class="entry-head">
+          <span class="entry-title">a thing you made off-screen</span>
+          <span class="entry-meta">2024</span>
+        </div>
+        <p>Writing, a zine, an event, a recipe, a woodworking piece — whatever you're proud of that isn't code.</p>
+        <div class="entry-links">
+          <a href="#">see it →</a>
+        </div>
+      </li>
+      <li class="entry">
+        <div class="entry-head">
+          <span class="entry-title">another not-nerd thing</span>
+          <span class="entry-meta">2022</span>
+        </div>
+        <p>A sentence or two. This section is where you get to be a whole person.</p>
+      </li>
+    </ul>
+    </section>
+
+    <!-- FOOTNOTES — the quiet place for engineering depth. OPTIONAL.
+         each note matches a small superscript number up in the text. -->
+    <ol class="notes">
+      <li id="n1"><span class="n">1.</span> <span>The technical aside that nerds will appreciate — a tradeoff, a number, a clever bit. Delete if unused. <a href="#r1">↩</a></span></li>
+    </ol>
+  </main>
+
+  <footer class="site-footer wrap">
+    <p>© <span id="year"></span> john-paul wee · <a href="mailto:wydjohnpaul@gmail.com">wydjohnpaul@gmail.com</a> · <a href="https://www.linkedin.com/in/wydjohnpaul">linkedin</a> · <a href="https://www.instagram.com/wyd_jp/">instagram</a></p>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+
+  <!-- projects filter: show one group at a time. (no javascript = both show.) -->
+  <script>
+    (function () {
+      var links = document.querySelectorAll(".t-link");
+      var groups = document.querySelectorAll(".proj-group");
+      if (!links.length) return;
+      function show(id) {
+        groups.forEach(function (g) { g.style.display = (g.id === id) ? "" : "none"; });
+        links.forEach(function (l) {
+          var on = l.dataset.target === id;
+          l.classList.toggle("active", on);
+          l.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+      }
+      links.forEach(function (l) { l.addEventListener("click", function () { show(l.dataset.target); }); });
+      show("technical");   // EDIT: change to "nontechnical" to default to that view
+    })();
+  </script>
+</body>
+</html>

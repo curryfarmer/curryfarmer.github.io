@@ -1,0 +1,402 @@
+/* ==========================================================================
+   styles.css — the ONE stylesheet for the whole site.
+
+   You barely know CSS? Good news: to change how the site LOOKS, you almost
+   never touch anything below the ":root" block. Just edit the variables in
+   :root (colors, spacing, fonts) and the whole site updates.
+
+   Map of this file:
+     1. :root  ........ all design tokens — EDIT HERE to restyle
+     2. reset / base .. sensible defaults
+     3. layout ........ page width + the top nav + footer
+     4. type .......... headings, body, links
+     5. components .... contents list, timeline, projects, photos, notes
+     6. a11y / motion . focus rings, reduced-motion, gentle load fade
+     7. responsive .... phone tweaks
+   ========================================================================== */
+
+
+/* 1. ─────────────────────────────────────────────────────────────────────
+   DESIGN TOKENS.  Change a value here, the whole site follows.
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  /* colour — warm monochrome. the ONLY colour on the site is your photos.
+     want a pure-white site? set --paper: #ffffff.
+     want it cooler? nudge these toward grey. */
+  --paper:  #f8f5ef;   /* page background — warm off-white            */
+  --ink:    #20201d;   /* main text + headings — soft warm near-black */
+  --muted:  #6f6a60;   /* secondary text: captions, meta, footnotes   */
+  --line:   #e4ded2;   /* hairline dividers + borders (1px)           */
+
+  /* type — three roles. display = headings, body = reading, mono = labels. */
+  --font-display: "Hanken Grotesque", "Inter", system-ui, sans-serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono:    "Spline Sans Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  /* type sizes */
+  --size-hero:    clamp(40px, 6.5vw, 70px); /* the big name on the homepage */
+  --size-title:   clamp(26px, 4vw, 34px);   /* page + section titles        */
+  --size-sub:     20px;                      /* sub-headings                 */
+  --size-body:    17px;                      /* normal reading text          */
+  --size-meta:    14px;                      /* small print, captions        */
+
+  /* spacing & widths — whitespace IS the design, so these are generous. */
+  --gap-section:  clamp(72px, 11vw, 120px); /* vertical air between blocks   */
+  --w-text:       660px;                     /* reading column width          */
+  --w-wide:       900px;                     /* snapshots column width        */
+  --pad-x:        40px;                      /* left/right page padding       */
+}
+
+
+/* 2. ── reset / base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+/* scrollbar-gutter keeps a constant gutter so the page doesn't shift sideways
+   when content height changes (e.g. toggling the projects view). */
+html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.7;            /* roomy = warm + readable */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+
+/* 3. ── layout: page width, top nav, footer ──────────────────────────────── */
+
+/* .wrap centres content in the reading column. .wrap.wide = photo column. */
+.wrap { width: 100%; max-width: var(--w-text); margin: 0 auto; padding: 0 var(--pad-x); }
+.wrap.wide { max-width: var(--w-wide); }
+
+/* main content gets big breathing room top and bottom */
+main { padding: var(--gap-section) 0; }
+/* inner pages: extra space between the top bar and the page title */
+main:not(.landing) { padding-top: clamp(96px, 12vw, 150px); }
+
+/* top navigation — plain lowercase text, no box, no background bar */
+.site-header { padding-top: 28px; }
+.site-nav {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+.site-nav .brand {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+}
+.nav-links { list-style: none; display: flex; flex-wrap: wrap; gap: 18px; }
+.nav-links a { color: var(--muted); }
+.nav-links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 1px; }
+/* the page you're currently on — marked by ink colour (others are muted), no underline */
+.nav-links a.current { color: var(--ink); }
+
+/* footer — quiet, muted, at the very bottom */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  padding-bottom: 48px;
+  color: var(--muted);
+  font-size: var(--size-meta);
+}
+
+
+/* 4. ── type: headings, links ────────────────────────────────────────────── */
+
+/* all headings use the display face, lowercase, gently tightened */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-transform: lowercase;   /* the whole site speaks lowercase */
+}
+
+.hero-name { font-size: var(--size-hero); font-weight: 550; line-height: 1.0; letter-spacing: -0.03em; }
+.page-title { font-size: var(--size-title); margin-bottom: 12px; }
+h3 { font-size: var(--size-sub); }
+
+/* the warm one-line tagline under a title */
+.lead { color: var(--muted); font-size: var(--size-body); max-width: 46ch; }
+/* modest gap between the title/intro and the page content below */
+main:not(.landing) .lead { margin-bottom: 16px; }
+
+/* the snapshots page reads as a centred gallery */
+.centered { text-align: center; }
+.centered .lead { margin-left: auto; margin-right: auto; }
+
+/* paragraphs in a reading column */
+p + p { margin-top: 1em; }
+.prose p { max-width: 60ch; }
+
+/* links: no underline until you hover, and then it sits close to the word. */
+a { color: var(--ink); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 1px; text-decoration-thickness: 1px; }
+
+
+/* 5. ── components ───────────────────────────────────────────────────────── */
+
+/* -- 5a. the homepage: name + a list of links, centred, with deliberately
+   uneven spacing so it feels composed, not stacked. this is the whole page. */
+.home a, .home a:hover { text-decoration: none; }  /* home links never underline (they use the → / colour) */
+.landing { min-height: 82vh; display: flex; flex-direction: column; justify-content: center; }
+.landing .hero-name { margin-bottom: 14px; }
+.landing .lead { margin-left: 2px; }
+
+/* the typing line: a rotating word that types + deletes, with a blinking caret */
+.typed { color: var(--ink); }
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -2px;
+  background: var(--ink);
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.menu { display: flex; flex-direction: column; gap: 22px; margin-top: clamp(48px, 9vh, 88px); }
+.menu a {
+  position: relative;
+  width: fit-content;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.6vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  transition: transform .28s ease, color .2s ease;
+}
+/* the uneven indents — a gentle arc, not a straight column */
+.menu a:nth-child(1) { margin-left: 0;      }
+.menu a:nth-child(2) { margin-left: 1.8rem; }
+.menu a:nth-child(3) { margin-left: 3rem;   }
+.menu a:nth-child(4) { margin-left: 3.6rem; }
+.menu a:nth-child(5) { margin-left: 3.6rem; }
+.menu a:nth-child(6) { margin-left: 3rem;   }
+.menu a:nth-child(7) { margin-left: 1.8rem; }   /* linkedin  */
+.menu a:nth-child(8) { margin-left: 0;      }   /* instagram */
+/* hover affordance instead of an underline: an arrow slides in + the link nudges */
+.menu a::before {
+  content: "\2192";                /* → */
+  position: absolute;
+  left: -1.5em;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .28s ease, transform .28s ease;
+}
+.menu a:hover { transform: translateX(6px); }
+.menu a:hover::before { opacity: 1; transform: translateX(0); }
+.menu a:focus-visible::before { opacity: 1; transform: translateX(0); }
+/* footer link on home: colour shift instead of underline */
+.home .site-footer a:hover { color: var(--ink); }
+
+/* a small, set-apart link under the menu pointing at the alternate cover */
+.menu-alt { margin-top: 44px; }
+.menu-alt a { color: var(--muted); font-size: var(--size-meta); }
+.menu-alt a:hover { color: var(--ink); }
+
+/* -- 5a-alt. the ALTERNATE homepage (alt-home.html): brand top bar, a big
+   centred typed headline, and the section links scattered across the page.
+   Optional second cover — the classic home (.landing/.menu) is left untouched. */
+.alt-back { color: var(--muted); font-size: var(--size-meta); }
+.alt-back:hover { color: var(--ink); }
+.cover-main { padding: clamp(16px, 4vh, 40px) 24px 0; }
+.cover-headline {
+  font-family: var(--font-display);
+  font-weight: 550;
+  font-size: clamp(32px, 6vw, 64px);
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  text-align: center;
+  max-width: 18ch;
+  margin: clamp(24px, 7vh, 80px) auto 0;
+}
+.scatter {
+  position: relative;
+  max-width: 980px;
+  min-height: 58vh;
+  margin: clamp(48px, 9vh, 110px) auto 0;
+}
+.scatter-label {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: var(--size-meta);
+}
+.scatter a {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: transform .28s ease;
+}
+/* positions as top / left percentages — nudge these freely */
+.scatter a:nth-of-type(1) { top: 12%; left: 8%;  }   /* resume    */
+.scatter a:nth-of-type(2) { top: 3%;  left: 60%; }   /* projects  */
+.scatter a:nth-of-type(3) { top: 38%; left: 28%; }   /* snapshots */
+.scatter a:nth-of-type(4) { top: 47%; left: 67%; }   /* musings   */
+.scatter a:nth-of-type(5) { top: 73%; left: 14%; }   /* now       */
+.scatter a:nth-of-type(6) { top: 80%; left: 50%; }   /* interests */
+.scatter a:nth-of-type(7) { top: 24%; left: 45%; }   /* linkedin  */
+.scatter a:nth-of-type(8) { top: 62%; left: 38%; }   /* instagram */
+.scatter a::before {
+  content: "\2192";                /* → */
+  position: absolute;
+  left: -1.5em;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .28s ease, transform .28s ease;
+}
+.scatter a:hover { transform: translateX(6px); }
+.scatter a:hover::before { opacity: 1; transform: translateX(0); }
+.scatter a:focus-visible::before { opacity: 1; transform: translateX(0); }
+
+/* -- 5b. generic stacked entries (used by resume + projects) -------------- */
+/* a list of items separated by hairlines, lots of vertical room. */
+.entries { list-style: none; margin-top: 24px; }
+.entry { padding: 36px 0; border-bottom: 1px solid var(--line); }
+.entry:first-child { border-top: 1px solid var(--line); }
+.entry-head { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: baseline; }
+.entry-title { font-family: var(--font-display); font-size: var(--size-sub); }
+.entry-meta { color: var(--muted); font-size: var(--size-meta); white-space: nowrap; }
+.entry p { color: var(--ink); margin-top: 12px; max-width: 60ch; }
+
+/* small muted "tech used" label — the ONLY place mono appears. quiet, not a terminal. */
+.stack { font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin-top: 14px; letter-spacing: 0.01em; }
+
+/* a row of small links under a project */
+.entry-links { margin-top: 16px; font-size: var(--size-meta); display: flex; gap: 18px; flex-wrap: wrap; }
+
+/* the technical / non-technical toggle on the projects page — plain text links */
+.toggle { display: flex; align-items: baseline; gap: 12px; margin: 28px 0 4px; font-family: var(--font-display); font-size: var(--size-sub); }
+.t-link { font: inherit; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; letter-spacing: -0.01em; transition: color .2s ease; }
+.t-link.active, .t-link:hover { color: var(--ink); }
+.t-sep { color: var(--muted); opacity: .45; }
+
+/* the "section" label that separates technical / non-technical etc. */
+.section-label {
+  font-size: var(--size-meta);
+  color: var(--muted);
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  margin: var(--gap-section) 0 16px;
+}
+.section-label:first-of-type { margin-top: 24px; }
+
+/* -- 5c. the download "pill" (e.g. resume PDF) ---------------------------- */
+.pill {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 9px 20px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: var(--size-meta);
+  text-decoration: none;
+  color: var(--ink);
+  transition: background-color .2s, color .2s;
+}
+.pill:hover { background: var(--ink); color: var(--paper); }
+
+/* -- 5d. footnotes / margin notes (the quiet signature) ------------------- */
+/* a small superscript ref in the text, and the matching note at the bottom. */
+.fnref { font-size: 0.7em; vertical-align: super; line-height: 0; text-decoration: none; color: var(--muted); }
+.fnref:hover { color: var(--ink); }
+.notes { margin-top: var(--gap-section); padding-top: 20px; border-top: 1px solid var(--line); list-style: none; }
+.notes li { color: var(--muted); font-size: var(--size-meta); margin-top: 8px; display: flex; gap: 8px; }
+.notes .n { color: var(--ink); }
+
+/* -- 5e. snapshots: a travel journal grouped by place + a click-to-enlarge
+   lightbox. this is the only place colour lives — let the images talk. ------ */
+.journal { display: flex; flex-direction: column; gap: clamp(56px, 9vw, 96px); margin-top: 40px; }
+.trip-place { font-size: var(--size-sub); margin-bottom: 16px; }
+.trip-when { color: var(--muted); font-size: var(--size-meta); margin-left: 8px; }
+/* a responsive grid of thumbnails for one trip */
+.trip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+/* each photo is a button so it's clickable + keyboard-focusable */
+.shot {
+  display: block; padding: 0; border: 0; background: none; cursor: pointer;
+  aspect-ratio: 4 / 5; overflow: hidden;
+}
+.shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease, opacity .2s ease; }
+.shot:hover img { transform: scale(1.04); }
+/* placeholder look until you drop in a real <img>. delete .placeholder when you do. */
+.placeholder {
+  width: 100%; height: 100%;
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: var(--size-meta);
+}
+
+/* the lightbox overlay — hidden until a photo is clicked */
+.lightbox[hidden] { display: none; }
+.lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 24px;
+  background: rgba(26, 25, 22, 0.82);     /* warm dimmed paper-black */
+  animation: fade-in .2s ease both;
+}
+.lightbox img { max-width: min(92vw, 1100px); max-height: 82vh; object-fit: contain; }
+.lightbox-cap { color: #f2ede3; font-size: var(--size-meta); }
+.lightbox-close {
+  position: absolute; top: 18px; right: 22px;
+  background: none; border: 0; cursor: pointer;
+  color: #f2ede3; font-size: 26px; line-height: 1;
+}
+
+/* -- 5f. simple labelled lists (used by "now") --------------------------- */
+.stacklist { list-style: none; margin-top: 8px; }
+.stacklist li { padding: 15px 0; border-bottom: 1px solid var(--line); }
+.stacklist .what { color: var(--muted); font-size: var(--size-meta); }
+
+
+/* 6. ── accessibility & motion ───────────────────────────────────────────── */
+
+/* always-visible keyboard focus ring */
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
+
+/* one gentle fade-in when the page loads — that's the only motion on the site. */
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+body { animation: fade-in .6s ease both; }
+
+/* respect people who asked their device for less motion: no fade, no smooth scroll. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body { animation: none; }
+  .caret { animation: none; display: none; }  /* no blink, no typing on reduced motion */
+  .lightbox { animation: none; }
+  * { transition: none !important; }
+}
+
+
+/* 7. ── responsive (phones) ──────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .site-nav { flex-direction: column; gap: 10px; }
+  .nav-links { gap: 14px; }
+  .wrap { padding-left: 22px; padding-right: 22px; }  /* roomier content on small screens */
+  .menu a { margin-left: 0 !important; }  /* drop the arc indents on phones */
+  /* alternate home: collapse the absolute scatter to a clean column on phones */
+  .scatter { position: static; min-height: 0; display: flex; flex-direction: column; gap: 20px; margin-top: 36px; }
+  .scatter a { position: relative; top: auto; left: auto; }
+  .scatter-label { position: static; transform: none; margin: 0 0 4px; }
+  .cover-headline { margin-top: 32px; }
+  .entry-head { gap: 4px; }
+}

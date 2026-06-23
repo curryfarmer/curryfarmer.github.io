@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ====================================================================
+       now.html — what you're currently into: listening to, reading, etc.
+       (Named after the "now page" idea: a snapshot of right now.)
+
+       TO EDIT:  add/remove <li> rows in each list. duplicate a whole
+                 section (label + <ul>) to add a new category.
+       ==================================================================== -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>now — john-paul wee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesque:wght@400..700&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="/images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+  <link rel="manifest" href="/images/site.webmanifest" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="primary">
+      <a class="brand" href="index.html">john-paul wee</a>
+      <ul class="nav-links">
+        <li><a href="index.html">home</a></li>
+        <li><a href="resume.html">resume</a></li>
+        <li><a href="projects.html">projects</a></li>
+        <li><a href="snapshots.html">snapshots</a></li>
+        <li><a href="musings.html">musings</a></li>
+        <li><a href="now.html" class="current" aria-current="page">now</a></li>
+        <li><a href="interests.html">interests</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1 class="page-title">now</h1>
+    <p class="lead">a snapshot of what's in rotation. updated whenever i remember to.</p>
+
+    <!-- LISTENING ------------------------------------------------------ -->
+    <p class="section-label">listening to</p>
+    <ul class="stacklist">
+      <!-- EDIT: one <li> per item. the .what is the small grey note. -->
+      <li>album or artist <span class="what">— on repeat</span></li>
+      <li>another one <span class="what">— a recent find</span></li>
+      <li>a podcast, maybe <span class="what">— for the commute</span></li>
+    </ul>
+
+    <!-- READING -------------------------------------------------------- -->
+    <p class="section-label">reading</p>
+    <ul class="stacklist">
+      <li>a book title <span class="what">— author</span></li>
+      <li>another book <span class="what">— slowly</span></li>
+    </ul>
+  </main>
+
+  <footer class="site-footer wrap">
+    <p>© <span id="year"></span> john-paul wee · <a href="mailto:wydjohnpaul@gmail.com">wydjohnpaul@gmail.com</a> · <a href="https://www.linkedin.com/in/wydjohnpaul">linkedin</a> · <a href="https://www.instagram.com/wyd_jp/">instagram</a></p>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

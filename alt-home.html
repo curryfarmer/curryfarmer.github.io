@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
   <!-- ====================================================================
-       index.html — the HOMEPAGE. As minimal as it gets: john-paul wee, a
-       rotating typed line, and a list of links arranged in a gentle arc.
-       The links ARE the navigation.
+       alt-home.html — an ALTERNATE cover (template). Brand top-left, a big
+       centred typed headline, and the section links scattered across the
+       page. The classic homepage is index.html; this is just a second look.
 
-       TO EDIT:  john-paul wee, the typed roles (script at the bottom), the links.
-       TO RESTYLE: edit the :root block in styles.css, not this file.
+       TO USE THIS AS YOUR REAL HOMEPAGE: rename this file to index.html
+       (and rename the old index.html to something else first).
+       TO MOVE THE LINKS: edit the top/left percentages for `.scatter a`
+       in styles.css (each one is labelled).
        ==================================================================== -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>john-paul wee</title>
+  <title>alternate home — john-paul wee</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesque:wght@400..700&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
@@ -24,14 +26,20 @@
 </head>
 <body class="home">
 
-  <main class="wrap landing">
-    <!-- EDIT: john-paul wee. -->
-    <h1 class="hero-name">john-paul wee</h1>
-    <!-- the rotating typed line. the word after "i'm a" cycles (see script below). -->
-    <p class="lead">i'm a <span id="typed" class="typed">backend engineer</span><span class="caret" aria-hidden="true"></span></p>
+  <!-- top bar: john-paul wee, plus a small way back to the classic home -->
+  <header class="site-header">
+    <nav class="site-nav wrap" aria-label="home">
+      <a class="brand" href="index.html">john-paul wee</a>
+      <a class="alt-back" href="index.html">classic home →</a>
+    </nav>
+  </header>
 
-    <!-- EDIT: the links. these are the only navigation on the site. -->
-    <nav class="menu" aria-label="primary">
+  <main class="cover-main">
+    <!-- the big headline. the word after "i'm a" rotates (see script below). -->
+    <h1 class="cover-headline">i'm a <span id="typed" class="typed">backend engineer</span><span class="caret" aria-hidden="true"></span></h1>
+
+    <!-- the scattered navigation. order here matches the positions in styles.css. -->
+    <nav class="scatter" aria-label="primary">
       <a href="resume.html">resume</a>
       <a href="projects.html">projects</a>
       <a href="snapshots.html">snapshots</a>
@@ -41,9 +49,6 @@
       <a href="https://www.linkedin.com/in/wydjohnpaul" target="_blank" rel="noopener">linkedin</a>
       <a href="https://www.instagram.com/wyd_jp/" target="_blank" rel="noopener">instagram</a>
     </nav>
-
-    <!-- template link: a second cover layout to try out. delete if you don't want it. -->
-    <p class="menu-alt"><a href="alt-home.html">alternate home →</a></p>
   </main>
 
   <footer class="site-footer wrap">
